@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from "react-redux";
+import {store} from "./store/store"
+import TodoApp from "./components/todoapp/TodoApp";
+import StartGameScreens from "./screens/StartGameScreens";
+import { StyleSheet, View } from "react-native";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  return (
+    <View style={styles.rootScreen}>
+      <StartGameScreens/>
+    </View>
+    );
+  }
+  
+
+  const styles=StyleSheet.create({
+    rootScreen:{
+      flex:1,
+      backgroundColor:"#ddb52f"
+    }
+  })
+  
+  
+  {/* <Provider store={store}>
+   <TodoApp/>
+  </Provider> */}
