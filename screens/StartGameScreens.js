@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, View, Alert } from "react-native";
-import { PrimaryButton } from "../components/gameapp/PrimaryButton";
+import { StyleSheet, TextInput, View, Alert, Text } from "react-native";
+import Card from "../components/gameapp/ui/Card";
+import InstructionText from "../components/gameapp/ui/InstructionText";
+import { PrimaryButton } from "../components/gameapp/ui/PrimaryButton";
+import Title from "../components/gameapp/ui/Title";
+import Colors from "../constants/colors";
 
-const StartGameScreens = () => {
+const StartGameScreens = ({ onPickedNumber }) => {
   const [enterdNumber, setEnteredNumber] = useState("");
 
   const numberInpuHandler = (enteredtext) => {
@@ -14,8 +18,8 @@ const StartGameScreens = () => {
   };
 
   const confirmInputHandler = () => {
-    const chosenNymber = parseInt(enterdNumber);
-    if (isNaN(chosenNymber) || chosenNymber <= 0 || chosenNymber > 99) {
+    const chosenNumber = parseInt(enterdNumber);
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
       Alert.alert(
         "Invalid Number",
         "Number has to be a number between 1 and 99",
@@ -23,27 +27,33 @@ const StartGameScreens = () => {
       );
       return;
     }
+
+    onPickedNumber(chosenNumber);
   };
 
   return (
-    <View style={styles.inpuContainer}>
-      <TextInput
-        maxLength={2}
-        keyboardType="number-pad"
-        autoCapitalize="none"
-        autoCorrect={false}
-        style={styles.numberInput}
-        value={enterdNumber}
-        onChangeText={numberInpuHandler}
-      />
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton action={resetInputHandler}>Reset</PrimaryButton>
+    <View style={styles.rootContainer}>
+      <Title>Guess My Number</Title>
+      <Card>
+      <InstructionText>Enter Number</InstructionText>
+        <TextInput
+          maxLength={2}
+          keyboardType="number-pad"
+          autoCapitalize="none"
+          autoCorrect={false}
+          style={styles.numberInput}
+          value={enterdNumber}
+          onChangeText={numberInpuHandler}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton action={resetInputHandler}>Reset</PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton action={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton action={confirmInputHandler}>Confirm</PrimaryButton>
-        </View>
-      </View>
+      </Card>
     </View>
   );
 };
@@ -51,20 +61,13 @@ const StartGameScreens = () => {
 export default StartGameScreens;
 
 const styles = StyleSheet.create({
-  inpuContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
+  rootContainer: {
+    flex: 1,
     marginTop: 100,
-    marginHorizontal: 24,
-    backgroundColor: "#4e0329",
-    borderRadius: 8,
-    // android shadow = elevation:3
-    shadowColor: "black",
-    shadowOffset: { width: 2, height: 5 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
+    alignItems: "center",
   },
+
+  
   buttonsContainer: {
     flexDirection: "row",
   },
@@ -76,9 +79,9 @@ const styles = StyleSheet.create({
     width: 50,
     fontSize: 32,
     fontWeight: "bold",
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Colors.primary2,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: Colors.primary2,
     marginVertical: 8,
     textAlign: "center",
   },
