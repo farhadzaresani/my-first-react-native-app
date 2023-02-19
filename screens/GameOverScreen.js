@@ -1,10 +1,10 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { PrimaryButton } from "../components/gameapp/ui/PrimaryButton";
 import Title from "../components/gameapp/ui/Title";
 import Colors from "../constants/colors";
 
-const GameOverScreen = ({roundNumber,userNumber,onRestart}) => {
+const GameOverScreen = ({ roundNumber, userNumber, onRestart }) => {
   return (
     <View style={styles.rootContainer}>
       <Title>Game Is Over</Title>
@@ -15,8 +15,9 @@ const GameOverScreen = ({roundNumber,userNumber,onRestart}) => {
         />
       </View>
       <Text style={styles.summaryText}>
-        Your phone neede <Text style={styles.highlightText}>{roundNumber}</Text> roundes to
-        guess number <Text style={styles.highlightText}>{userNumber}</Text> !
+        Your phone neede <Text style={styles.highlightText}>{roundNumber}</Text>{" "}
+        roundes to guess number{" "}
+        <Text style={styles.highlightText}>{userNumber}</Text> !
       </Text>
       <PrimaryButton action={onRestart}>Start New Game</PrimaryButton>
     </View>
@@ -24,6 +25,8 @@ const GameOverScreen = ({roundNumber,userNumber,onRestart}) => {
 };
 
 export default GameOverScreen;
+
+const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -34,7 +37,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     marginVertical: 10,
-    width: 370,
+    width: deviceWidth < 380 ? 370 : 300,
     height: 400,
     // overflow: "hidden",
     alignItems: "center",
@@ -47,8 +50,8 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans",
     color: "white",
     fontSize: 23,
-    textAlign:"center",
-    marginVertical:12,
+    textAlign: "center",
+    marginVertical: 12,
   },
   highlightText: {
     fontFamily: "open-sans-bold",

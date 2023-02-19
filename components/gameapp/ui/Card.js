@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Colors from "../../../constants/colors";
 
 const Card = ({ children }) => {
@@ -8,12 +8,14 @@ const Card = ({ children }) => {
 
 export default Card;
 
+const devideWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   inpuContainer: {
     justifyContent: "center",
     alignItems: "center",
     padding: 16,
-    marginTop: 36,
+    marginTop: devideWidth < 350 ? 18 : 36,
     marginHorizontal: 24,
     backgroundColor: Colors.primary3,
     borderRadius: 8,

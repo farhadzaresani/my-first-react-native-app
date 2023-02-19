@@ -6,6 +6,7 @@ import InstructionText from "../components/gameapp/ui/InstructionText";
 import { PrimaryButton } from "../components/gameapp/ui/PrimaryButton";
 import Title from "../components/gameapp/ui/Title";
 import { Ionicons } from "@expo/vector-icons";
+import Colors from "../constants/colors";
 
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -80,11 +81,20 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
-      <View>
+      <View style={styles.listContiner}>
         <FlatList
           data={guessRounds}
           keyExtractor={(item) => item}
-          renderItem={({ item }) => <Text style={styles.listItem}>{item}</Text>}
+          renderItem={({ item, index }) => (
+            <View style={styles.listItem}>
+              <View>
+                <Text style={styles.listItemText}>#{index + 1}</Text>
+              </View>
+              <View>
+                <Text style={styles.listItemText}>{item}</Text>
+              </View>
+            </View>
+          )}
         />
       </View>
     </View>
@@ -97,6 +107,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 12,
+    alignItems: "center",
   },
   buttonsContainer: {
     flexDirection: "row",
@@ -108,7 +119,23 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   listItem: {
-    color: "white",
+    backgroundColor: Colors.primary2,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    borderRadius: 26,
+    borderColor: "black",
+    borderWidth: 3,
+    margin: 5,
+    width: "99%",
+  },
+  listItemText: {
     fontFamily: "open-sans-bold",
+  },
+  listContiner: {
+    flex: 1,
+    padding: 16,
   },
 });
